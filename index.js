@@ -36,6 +36,17 @@ async function run() {
       const reviews=await reviewCollection.find().toArray()
       res.send(reviews)
     })
+      app.post('/users',async(req,res)=>{
+      const user=req.body
+      const result=await userCollection.insertOne(user)
+      res.send(result)
+    })
+       app.get('/user/:email',async(req,res)=>{
+      const email=req.params.email
+      const user=await userCollection.findOne({email:email})
+      if (!user) {
+    return res.status(404).send({ message: "User not found" });
+  }
 
 
     await client.connect();
