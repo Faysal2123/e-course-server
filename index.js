@@ -32,7 +32,10 @@ async function run() {
         const courses=await courseCollection.find().toArray()
         res.send(courses)
     })
-  
+   app.get('/reviews',async(req,res)=>{
+      const reviews=await reviewCollection.find().toArray()
+      res.send(reviews)
+    })
 
 
     await client.connect();
