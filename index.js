@@ -61,6 +61,12 @@ async function run() {
   const result = await courseCollection.findOne(query);
   res.send(result);
 });
+app.get('/bookedSession/:email',async(req,res)=>{
+  const email=req.params.email
+  const query={email:email}
+  const booked=await bookedCollection.find(query).toArray()
+  res.send(booked)
+})
 
 
     await client.connect();
