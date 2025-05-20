@@ -95,6 +95,11 @@ app.put('/note/:id',async(req,res)=>{
   res.send(result)
 })
 
+app.post('/course',async(req,res)=>{
+  const course=req.body
+  const result=await courseCollection.insertOne(course)
+  res.send(result)
+})
     await client.connect();
     
     await client.db("admin").command({ ping: 1 });
