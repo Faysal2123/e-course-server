@@ -27,6 +27,7 @@ async function run() {
     const reviewCollection=database.collection('reviews')
     const userCollection=database.collection('users')
     const bookedCollection=database.collection('booked')
+    const noteCollection=database.collection('note')
 
     app.get('/course',async(req,res)=>{
         const courses=await courseCollection.find().toArray()
@@ -58,7 +59,7 @@ async function run() {
 });
 app.get('/bookedSession/:email',async(req,res)=>{
   const email=req.params.email
-  const query={email:email}
+  const query={userEmail:email}
   const booked=await bookedCollection.find(query).toArray()
   res.send(booked)
 })
@@ -67,7 +68,32 @@ app.post('/bookings',async(req,res)=>{
   const result=await bookedCollection.insertOne(booked)
   res.send(result)
 })
-
+app.post('/note',async(req,res)=>{
+  const note=req.body
+  const result=await noteCollection.insertOne(note)
+  res.send(result)
+})
+app.get('/note/:email',async(req,res)=>{
+  const email=req.params.email
+  const query={email:email}
+  const result=await noteCollection.find(query).toArray()
+  res.send(result)
+})
+app.delete('/note/:id',async(req,res)=>{
+  const id=req.params.id
+  const query={_id:new ObjectId(id)}
+  const result=await noteCollection.deleteOne(query)
+  res.send(result)
+})
+app.put('/note/:id',async(req,res)=>{
+  const {id}=req.params
+  const updateNote=req.body
+  const result=await noteCollection.updateOne(
+    {_id:new ObjectId(id)},
+    {$set:updateNote}
+  )
+  res.send(result)
+})
 
     await client.connect();
     
