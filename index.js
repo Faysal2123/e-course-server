@@ -32,16 +32,16 @@ async function run() {
         const courses=await courseCollection.find().toArray()
         res.send(courses)
     })
-   app.get('/reviews',async(req,res)=>{
+    app.get('/reviews',async(req,res)=>{
       const reviews=await reviewCollection.find().toArray()
       res.send(reviews)
     })
-      app.post('/users',async(req,res)=>{
+    app.post('/users',async(req,res)=>{
       const user=req.body
       const result=await userCollection.insertOne(user)
       res.send(result)
     })
-       app.get('/user/:email',async(req,res)=>{
+    app.get('/user/:email',async(req,res)=>{
       const email=req.params.email
       const user=await userCollection.findOne({email:email})
       if (!user) {
@@ -50,12 +50,7 @@ async function run() {
   
   res.send({ role: user.role });
     })
-      const email=req.params.email
-      const user=await userCollection.findOne({email:email})
-      if (!user) {
-    return res.status(404).send({ message: "User not found" });
-  }
-  app.get('/courseDetails/:id', async (req, res) => {
+     app.get('/courseDetails/:id', async (req, res) => {
   const id = req.params.id;
   const query = { _id: new ObjectId(id) };
   const result = await courseCollection.findOne(query);
@@ -66,6 +61,11 @@ app.get('/bookedSession/:email',async(req,res)=>{
   const query={email:email}
   const booked=await bookedCollection.find(query).toArray()
   res.send(booked)
+})
+app.post('/bookings',async(req,res)=>{
+  const booked=req.body
+  const result=await bookedCollection.insertOne(booked)
+  res.send(result)
 })
 
 
