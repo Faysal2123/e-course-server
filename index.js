@@ -135,6 +135,17 @@ app.delete('/materials/:id',async(req,res)=>{
   res.send(result)
 })
 
+app.patch('/materials/:id',async(req,res)=>{
+  const id=req.params.id
+  const updateData=req.body
+  const query={_id:new ObjectId(id)}
+  const update={
+        $set:updateData,
+      };
+      const result=await materialsCollection.updateOne(query,update)
+      res.send(result)
+})
+
     await client.connect();
     
     await client.db("admin").command({ ping: 1 });
