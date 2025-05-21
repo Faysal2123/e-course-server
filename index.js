@@ -122,29 +122,13 @@ app.post('/materials',async(req,res)=>{
   const result=await materialsCollection.insertOne(materials)
   res.send(result)
 })
-
 app.get('/materials/:email',async(req,res)=>{
   const email=req.params.email
   const query={tutorEmail:email}
   const result=await materialsCollection.find(query).toArray()
   res.send(result)
 })
-app.delete('/materials/:id',async(req,res)=>{
-  const id=req.params.id
-  const query={_id:new ObjectId(id)}
-  const result=await materialsCollection.deleteOne(query)
-  res.send(result)
-})
-app.patch('/materials/:id',async(req,res)=>{
-  const id=req.params.id
-  const updateData=req.body
-  const query={_id:new ObjectId(id)}
-  const update={
-        $set:updateData,
-      };
-      const result=await materialsCollection.updateOne(query,update)
-      res.send(result)
-})
+
     await client.connect();
     
     await client.db("admin").command({ ping: 1 });
