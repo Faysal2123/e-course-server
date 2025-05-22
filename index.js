@@ -128,6 +128,10 @@ app.get('/materials/:email',async(req,res)=>{
   const result=await materialsCollection.find(query).toArray()
   res.send(result)
 })
+app.get('/materials',async(req,res)=>{
+  const result=await materialsCollection.find().toArray()
+  res.send(result)
+})
 app.delete('/materials/:id',async(req,res)=>{
   const id=req.params.id
   const query={_id:new ObjectId(id)}
@@ -210,14 +214,14 @@ app.patch("/users/:id", async (req, res) => {
         res.status(500).send({ message: "Error updating session", error: error.message });
       }
     });
-    
+
     app.delete('/course/delete/:id',async(req,res)=>{
       const id=req.params.id
       const query={_id:new ObjectId(id)}
       const result=await courseCollection.deleteOne(query)
       res.send(result)
     })
-
+  
     await client.connect();
     
     await client.db("admin").command({ ping: 1 });
