@@ -175,6 +175,48 @@ app.patch("/users/:id", async (req, res) => {
   }
 });
 
+  app.patch("/sessions/status/:id", async (req, res) => {
+      const { id } = req.params;
+      console.log("Session ID from request:", id);
+      const { status, rejectionReason, feedback, amount } = req.body;
+    
+      try {
+        const session = await courseCollection.findOne({ _id: new ObjectId(id) });
+    
+        if (!session) {
+          return res.status(404).send({ message: "Session not found" });
+        }
+    
+        const updateData = { status: status };
+    
+        if (status === "approved") {
+          if (amount) {
+            updateData.registration_fee = amount;
+          } else {
+            updateData.registration_fee = 0;
+          }
+        } else if (status === "rejected") {
+          updateData.rejectionReason = rejectionReason;
+          updateData.feedback = feedback;
+        }
+    
+        const result = await courseCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updateData }
+        );
+    
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Error updating session", error: error.message });
+      }
+    });
+    
+    app.delete('/course/delete/:id',async(req,res)=>{
+      const id=req.params.id
+      const query={_id:new ObjectId(id)}
+      const result=await courseCollection.deleteOne(query)
+      res.send(result)
+    })
 
     await client.connect();
     
