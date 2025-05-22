@@ -146,6 +146,36 @@ app.patch('/materials/:id',async(req,res)=>{
       res.send(result)
 })
 
+ 
+app.get('/users',async(req,res)=>{
+  const result=await userCollection.find().toArray()
+  res.send(result)
+})
+
+
+app.patch("/users/:id", async (req, res) => {
+  const id = req.params.id;
+  const { role } = req.body;
+
+  try {
+    const result = await userCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: { role: role } }
+    );
+
+    if (result.modifiedCount > 0) {
+      const updatedUser = await userCollection.findOne({ _id: new ObjectId(id) });
+      res.send(updatedUser);
+    } else {
+      res.status(404).send({ message: "User not found or role unchanged" });
+    }
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
     await client.connect();
     
     await client.db("admin").command({ ping: 1 });
