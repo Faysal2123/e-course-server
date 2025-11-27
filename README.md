@@ -1,136 +1,127 @@
-# E-Courses Server
+# 🎓 E-Courses Server
 
-This is the backend server for the E-Courses application, built with Node.js, Express, and MongoDB. It provides various API endpoints to manage courses, user data, reviews, bookings, notes, and course materials.
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/) 
+[![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/) 
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)  
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Features
+---
 
-*   **Course Management**: Create, read, update, and delete course information.
-*   **User Management**: Handle user registration, roles, and profiles.
-*   **Review System**: Manage course reviews.
-*   **Session Bookings**: Allow users to book sessions.
-*   **Personal Notes**: Users can create, read, update, and delete personal notes.
-*   **Course Materials**: Manage materials associated with courses.
+## 💡 Project Overview
+**E-Courses Server** is the backend for the E-Courses application.  
+It is built with **Node.js**, **Express**, and **MongoDB**, providing secure and efficient RESTful APIs to manage courses, users, reviews, bookings, notes, and course materials.
 
-## API Endpoints
+---
 
-Below is a detailed explanation of the API endpoints, highlighting the CRUD operations.
+## ✨ Features
+- **Course Management**: Create, read, update, delete course information.  
+- **User Management**: Handle registration, roles, and profiles.  
+- **Review System**: Manage course reviews.  
+- **Session Bookings**: Users can book sessions.  
+- **Personal Notes**: CRUD operations for user notes.  
+- **Course Materials**: Manage materials associated with courses.  
+
+---
+
+## 📌 API Endpoints
 
 ### 1. Courses
-
-*   **GET /course**
-    *   **Description**: Retrieves all available courses.
-    *   **Operation**: Read
-*   **GET /courseDetails/:id**
-    *   **Description**: Retrieves details for a specific course by its ID.
-    *   **Operation**: Read
-*   **POST /course**
-    *   **Description**: Adds a new course to the database.
-    *   **Operation**: Create
-*   **GET /course/:email**
-    *   **Description**: Retrieves courses associated with a specific tutor email.
-    *   **Operation**: Read
-*   **GET /course/email/:email?status=...**
-    *   **Description**: Retrieves courses associated with a specific tutor email, with an optional filter by status.
-    *   **Operation**: Read
-*   **PATCH /sessions/status/:id**
-    *   **Description**: Updates the status of a session (e.g., approved, rejected) and can include rejection reasons, feedback, or registration fees.
-    *   **Operation**: Update
-*   **DELETE /course/delete/:id**
-    *   **Description**: Deletes a course by its ID.
-    *   **Operation**: Delete
+| Method | Endpoint | Description | Operation |
+|--------|---------|-------------|-----------|
+| GET | `/course` | Get all courses | Read |
+| GET | `/courseDetails/:id` | Get course details by ID | Read |
+| POST | `/course` | Add new course | Create |
+| GET | `/course/:email` | Get courses by tutor email | Read |
+| GET | `/course/email/:email?status=...` | Get courses by tutor email with optional status | Read |
+| PATCH | `/sessions/status/:id` | Update session status (approve/reject, feedback, fees) | Update |
+| DELETE | `/course/delete/:id` | Delete a course by ID | Delete |
 
 ### 2. Reviews
-
-*   **GET /reviews**
-    *   **Description**: Retrieves all course reviews.
-    *   **Operation**: Read
+| Method | Endpoint | Description | Operation |
+|--------|---------|-------------|-----------|
+| GET | `/reviews` | Get all course reviews | Read |
 
 ### 3. Users
-
-*   **POST /users**
-    *   **Description**: Registers a new user.
-    *   **Operation**: Create
-*   **GET /user/:email**
-    *   **Description**: Retrieves user role by email.
-    *   **Operation**: Read
-*   **GET /users**
-    *   **Description**: Retrieves all registered users.
-    *   **Operation**: Read
-*   **PATCH /users/:id**
-    *   **Description**: Updates a user's role by their ID.
-    *   **Operation**: Update
+| Method | Endpoint | Description | Operation |
+|--------|---------|-------------|-----------|
+| POST | `/users` | Register a new user | Create |
+| GET | `/user/:email` | Get user role by email | Read |
+| GET | `/users` | Get all registered users | Read |
+| PATCH | `/users/:id` | Update user role | Update |
 
 ### 4. Bookings
-
-*   **GET /bookedSession/:email**
-    *   **Description**: Retrieves all sessions booked by a specific user email.
-    *   **Operation**: Read
-*   **POST /bookings**
-    *   **Description**: Books a new session.
-    *   **Operation**: Create
+| Method | Endpoint | Description | Operation |
+|--------|---------|-------------|-----------|
+| GET | `/bookedSession/:email` | Get sessions booked by a user | Read |
+| POST | `/bookings` | Book a new session | Create |
 
 ### 5. Notes
-
-*   **POST /note**
-    *   **Description**: Creates a new personal note for a user.
-    *   **Operation**: Create
-*   **GET /note/:email**
-    *   **Description**: Retrieves all notes associated with a specific user email.
-    *   **Operation**: Read
-*   **DELETE /note/:id**
-    *   **Description**: Deletes a personal note by its ID.
-    *   **Operation**: Delete
-*   **PUT /note/:id**
-    *   **Description**: Updates an existing personal note by its ID.
-    *   **Operation**: Update
+| Method | Endpoint | Description | Operation |
+|--------|---------|-------------|-----------|
+| POST | `/note` | Create a personal note | Create |
+| GET | `/note/:email` | Get notes by user email | Read |
+| DELETE | `/note/:id` | Delete note by ID | Delete |
+| PUT | `/note/:id` | Update note by ID | Update |
 
 ### 6. Materials
+| Method | Endpoint | Description | Operation |
+|--------|---------|-------------|-----------|
+| POST | `/materials` | Add new course materials | Create |
+| GET | `/materials/:email` | Get materials by tutor email | Read |
+| GET | `/materials` | Get all course materials | Read |
+| DELETE | `/materials/:id` | Delete material by ID | Delete |
+| PATCH | `/materials/:id` | Update material by ID | Update |
 
-*   **POST /materials**
-    *   **Description**: Adds new course materials.
-    *   **Operation**: Create
-*   **GET /materials/:email**
-    *   **Description**: Retrieves course materials uploaded by a specific tutor email.
-    *   **Operation**: Read
-*   **GET /materials**
-    *   **Description**: Retrieves all course materials.
-    *   **Operation**: Read
-*   **DELETE /materials/:id**
-    *   **Description**: Deletes course materials by their ID.
-    *   **Operation**: Delete
-*   **PATCH /materials/:id**
-    *   **Description**: Updates existing course materials by their ID.
-    *   **Operation**: Update
+---
 
-## Technologies Used
+## 🛠 Technologies Used
+- **Node.js**  
+- **Express.js**  
+- **MongoDB** (via `mongodb` driver)  
+- **Mongoose** (for schema definition & validation)  
+- **CORS**  
+- **Dotenv**  
 
-*   Node.js
-*   Express.js
-*   MongoDB (via `mongodb` driver)
-*   Mongoose (Implicitly used for schema definition and validation)
-*   CORS
-*   Dotenv
+---
 
-## Setup Instructions
+## ⚙️ Setup Instructions
 
-1.  **Clone the repository**:
-    ```bash
-    git clone <repository_url>
-    cd e-courses-server
-    ```
-2.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-3.  **Environment Variables**:
-    Create a `.env` file in the root directory and add your MongoDB connection string and any other necessary environment variables:
-    ```
-    PORT=5000
-    DB_USER=<your_db_user>
-    DB_PASSWORD=<your_db_password>
-    ```
-4.  **Run the server**:
-    ```bash
-    npm start
-    ```
-    The server will start on the port specified in your `.env` file (default: 5000).
+1. **Clone the repository**
+```bash
+git clone <repository_url>
+cd e-courses-server
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Configure environment variables**  
+Create a `.env` file in the root directory:
+```
+PORT=5000
+DB_USER=<your_db_user>
+DB_PASSWORD=<your_db_password>
+DB_NAME=<your_db_name>
+JWT_SECRET=<your_jwt_secret>
+```
+
+4. **Run the server**
+```bash
+npm start
+```
+The server will run at `http://localhost:5000` (or the port specified in `.env`).
+
+---
+
+## 🔗 Links
+- **Frontend Repository:** https://github.com/Faysal2123/e-courses-client?tab=readme-ov-file  
+- **Live Demo:** [E-Courses Live](#)  
+
+---
+
+## 👨‍💻 Author
+**Mohammad Foysal**  
+Backend & MERN Stack Developer  
+
